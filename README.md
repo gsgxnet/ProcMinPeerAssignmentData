@@ -3,6 +3,8 @@ Expectation is to upload these to some picture upload service and include links 
 
 I prefer to upload them to a repo within my GitHub workspace.
 
+The screenshots are found in the screenshot directory under: https://github.com/gsgxnet/ProcMinPeerAssignmentData  
+
 
 
 
