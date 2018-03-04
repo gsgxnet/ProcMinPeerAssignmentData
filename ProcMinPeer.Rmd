@@ -146,13 +146,13 @@ Note that you don't need to change the component, time or coloring settings. You
 
 ---
 
-1. Loading the file Receipt phase of an environmental permit application process (_WABO_) CoSeLoG project.xes.gz into Prom67 and visualizing it by a Dotted Chart diagram and while sorting by time:startTime of Trace gives an overview of case start rate.  
+1. Loading the file Receipt phase of an environmental permit application process (_WABO_) CoSeLoG project.xes.gz into Prom67 and visualizing it by a Dotted Chart diagram and while sorting by time:startTime of Trace gives an overview of case start rate. Magnified here:  
 ![](./screenshots/D-1 DottedChartMag.png)  
 
 From that diagram can be concluded: 
 
 - there are small fluctuations in the arrival rate, there are no new cases on weekends. 
-- there is a genral trend for a slightly lower rate of new cases from around 20th of August
+- there is a general trend for a slightly lower rate of new cases from around 20th of August
 
 2. Looking at all traces we can see:
 
@@ -186,7 +186,7 @@ Suggested list of plug-ins or plug-in chains to produce a Petri net:
   
 ---
 
-The essential step to discover a comprehensible Petri net from the supplied log data is to filter out classes of traces with only a few class member but which are complicating the process model without giving extra insights. The major challange is setting the filters to such a level that an optimum of the real process variants is captured. Whether a class of traces is included or not for a good process modell should not depend on miner choosen for a Petri net. But there are differences in features a process discovery method is able to guarantee. Book chaper 7.5 "Inductive Mining" states "process trees are sound by construction".  
+The essential step to discover a comprehensible Petri net from the supplied log data is to filter out classes of traces with only a few class members but which are complicating the process model without giving extra insights. The major challenge is setting the filters to such a level that an optimum of the real process variants is captured. Whether a class of traces is included or not for a good process model should not depend on miner chosen for a Petri net. But there are differences in features a process discovery method is able to guarantee. Book chapter 7.5 "Inductive Mining" states "process trees are sound by construction".  
 So a good starting point is using the Inductive Visual Miner Plugin within ProM to discover a process tree and convert it to a Petri net thereafter.
 
 Steps  
@@ -200,13 +200,14 @@ Steps
 
 We see:
 
-2. ![](./screenshots/E-1iVM0prefilter.png)  
+2. with defaults:  
+    ![](./screenshots/E-1iVM0prefilter.png)  
 
 3. The Petri net is not comprehensible, it contains many hidden nodes  
 
 5. Set the trace prefilter to only include 90% of the most occurring traces  
     ![](./screenshots/E-1iVM90prefiltersetup.png)  
-
+    ![](./screenshots/E-1 PetriNetiVM908prefilter.png)
 Now the Petri net is comprehensible. Iteratively we can arrive to an optimal prefilter of 92.2% of the most occuring traces. That gives  
 ![](./screenshots/E-1 PetriNetiVM922prefilter.png)  
 
@@ -216,6 +217,10 @@ which is a result of this mined model, with parameters set up to be verified on 
   
   
 This Petri net is easy to comprehend and contains only 3 hidden nodes.  
+A tiny inrease of one-tenth more traces results in an increase to 10 hidden nodes with incomprehensible control flow.  
+![](./screenshots/E-2 PetriNetiVM923prefilter.png)  
+So the 92.2 percent setup is the optimal filter.  
+
 Nearly as good results can be achieved with other miners, but none gave a better net and none could be used to find the optimal filter settings for the best compromise of detail and drop of distorting traces.  
 
 See PhD thesis about Inductive miner: [Robust Process Mining with Guarantees](https://pure.tue.nl/ws/files/63890938/20170509_Leemans.pdf)  
@@ -228,7 +233,8 @@ See PhD thesis about Inductive miner: [Robust Process Mining with Guarantees](ht
 Include a screenshot of the part of the normative process model, with the conformance information projected onto it, that shows where most of the deviations occur.
 What is the replay fitness (the 'trace fitness' statistic) of the event log on the normative process model?
 Select the transition 'T06 Determine necessity of stop advice+complete' (on the top left of the model) and discuss its element statistics: how many times is the transition executed correctly and how many times incorrectly?
-Using the element statistics of transition 'T06 Determine necessity of stop advice+complete', what can you say about the (in)correct execution of this activity?
+Using the element statistics of transition 'T06 Determine necessity of stop advice+complete', what can you say about the (in)correct execution of this activity?  
+  
 Instructions to align the process model with the event log:
 
 Import the normative model using the `PNML Petri net files` importer.
@@ -242,6 +248,14 @@ If you followed these instructions exactly you do not need to mention these step
   
 ---  
 
+The part of the model where the most (absolute, not relative) deviations occur:  
+![](./screenshots/F-1 Replay_T10most.png)  
+
+The trace fitness is calculated as 0.8425  
+![](./screenshots/F-2 Statistics.png)  
+
+The overall statistics of the replay are:  
+
 Stat | Value  
 ----|---  
 #Cases replayed | 1.434
@@ -251,6 +265,12 @@ Stat | Value
 #Inserted ev.class | 1.690
 #Violating synchronous ev.class | 0
   
+  
+The screenshot also shows the T06 element statistics of 1309 traces where move log and modul occur and 125 traces with move model only.  
+
+So 8.7% of all traces show a deviation between from the model.  
+
+
 ---
 
 **G** The final analysis you have to perform on the original event log is a resource analysis, e.g. looking at the user behavior in the event log.
@@ -311,11 +331,11 @@ Think for instance of possible improvement opportunities and starting points for
 
 ---
   
-1. Having 116 trace variants and about 75 percent of these being followed only once suggests many very individual case handlings not really following a normative model. Reasons for this should be investigated. A more streamlined handling my be a lot more effective.  
+1. Having 116 trace variants and about 75 percent of these being followed only once suggests many very individual case handlings not really following a normative model. Reasons for this should be investigated. A more streamlined handling may be a lot more effective.  
 
 2. There is much effort spent in T06. Optimization of this will reduce costs and waiting times for stake holders significantly.  
 
-3. A change in processing might have happend since August 2011. This should be further investigated by splitting the log into 2 and mining them separately. Comparing activities, times etc might suggest where improvements allready have been achieved and point 1 and 2 might be seen in a different perspective.
+3. A change in processing might have happend since August 2011. This should be further investigated by splitting the log into 2 parts and mining them separately. Comparing activities, times etc might suggest where improvements allready have been achieved and point 1 and 2 might be seen in a different perspective.  
 
   
 ---
