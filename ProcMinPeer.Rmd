@@ -290,7 +290,7 @@ Non-default settings choosen:
 2. Edge removed for - to get distingushing colors  
 3. Size by ranking - to display the in-betweeness by size  
 
-![](./screenshots/G-1 Social Network.png)
+![](./screenshots/G-1 Social Network.png)  
   
 We can distinguish 3 types of resource involvement:
 
